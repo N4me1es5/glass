@@ -1,58 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Liquid Glass Demo</title>
-<style>
-  body {
-    margin: 0;
-    height: 200vh; /* scrollable content */
-    background: linear-gradient(135deg, #3366ff, #33ccff);
-    font-family: -apple-system, system-ui, sans-serif;
-    overflow-x: hidden;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Liquid Glass Imitation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap'); /* Using a similar font to Apple's SF Pro */
 
-  .glass {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 2rem 3rem;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px) saturate(200%);
-    -webkit-backdrop-filter: blur(20px) saturate(200%);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200vh; /* Make body tall for scrolling effect */
+            background: linear-gradient(135deg, #FFDAB9, #ADD8E6, #90EE90, #DDA0DD, #87CEEB); /* Dynamic, colorful background */
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            overflow-x: hidden; /* Prevent horizontal scrollbar */
+            position: relative; /* For absolute positioning of elements */
+        }
 
-  .glass button {
-    margin-top: 1rem;
-    padding: 0.8rem 1.6rem;
-    font-size: 1rem;
-    color: white;
-    background: rgba(255, 255, 255, 0.25);
-    border: none;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-  .glass button:hover {
-    background: rgba(255, 255, 255, 0.35);
-  }
-</style>
+        .liquid-glass-container {
+            position: sticky; /* Stays in view while scrolling */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05); /* Very slight white tint */
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2); /* Deeper shadow for floating effect */
+            backdrop-filter: blur(20px) saturate(180%); /* Core of the glass effect */
+            -webkit-backdrop-filter: blur(20px) saturate(180%); /* For Safari */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+            overflow: hidden; /* Crucial for pseudo-element clipping */
+
+            /* Adding a subtle inner shadow/gradient for depth */
+            position: relative;
+        }
+
+        /* Inner glow/highlight for depth - mimics Apple's subtle inner light */
+        .liquid-glass-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            z-index: 1; /* Above background but below content */
+        }
+
+        /* Subtle distortion effect - this is a bit of a hack */
+        /* We use a pseudo-element with a very slight blur and transform */
+        .liquid-glass-container::after {
+            content: '';
+            position: absolute;
+            top: -10px; /* Slightly offset to create a "wave" effect */
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: inherit; /* Inherit background properties */
+            border-radius: 25px; /* Slightly larger radius */
+            filter: blur(5px) brightness(1.1); /* Slight additional blur and brightness */
+            transform: scale(1.02); /* Slight scale for "refraction" */
+            opacity: 0.7; /* Make it subtle */
+            z-index: -1; /* Behind the main container's content */
+            pointer-events: none;
+        }
+
+
+        .liquid-glass-title {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 2.5em;
+            font-weight: 600;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+        }
+
+        .liquid-glass-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1em;
+            text-align: center;
+            line-height: 1.6;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+
+        .liquid-glass-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease-in-out;
+            position: relative;
+            overflow: hidden; /* For inner highlights */
+            user-select: none; /* Prevent text selection */
+
+            /* Glassy Button Base */
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .liquid-glass-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .liquid-glass-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Inner Highlight for button - gives it a convex look */
+        .liquid-glass-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent);
+            border-radius: 12px;
+            opacity: 0.7;
+            pointer-events: none;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .liquid-glass-button:hover::before {
+            opacity: 0.8;
+        }
+
+        /* Shine effect for button on hover */
+        .liquid-glass-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: skewX(-20deg);
+            pointer-events: none;
+            transition: left 0.4s ease-in-out;
+        }
+
+        .liquid-glass-button:hover::after {
+            left: 100%;
+        }
+
+        .scroll-content {
+            height: 100vh; /* Filler content to enable scrolling */
+            text-align: center;
+            padding-top: 100vh; /* Push content down to show button on scroll */
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.5em;
+            position: relative; /* So the button can be sticky relative to body */
+            z-index: 0; /* Ensure button sits above this content */
+        }
+
+    </style>
 </head>
 <body>
-  <div class="glass">
-    <h1>Liquid Glass</h1>
-    <p>Pure CSS frosted‑glass effect</p>
-    <button>Tap me</button>
-  </div>
+
+    <div class="liquid-glass-container">
+        <h1 class="liquid-glass-title">Experience Liquid Glass</h1>
+        <p class="liquid-glass-text">
+            This is an attempt to replicate Apple's signature liquid glass and refractive UI elements using pure CSS.
+            Scroll down to see the effect of the blurred background changing.
+        </p>
+        <a href="#" class="liquid-glass-button">Explore More</a>
+    </div>
+
+    <div class="scroll-content">
+        <p>Keep scrolling... the background keeps changing!</p>
+        <p>More content here to demonstrate scroll</p>
+        <p>The glass container stays in place</p>
+        <p>Enjoy the effect!</p>
+    </div>
+
 </body>
 </html>
