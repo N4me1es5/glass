@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Liquid Glass Demo</title>
+<style>
+  body {
+    margin: 0;
+    height: 200vh; /* scrollable content */
+    background: linear-gradient(135deg, #3366ff, #33ccff);
+    font-family: -apple-system, system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  .glass {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem 3rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px) saturate(200%);
+    -webkit-backdrop-filter: blur(20px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .glass button {
+    margin-top: 1rem;
+    padding: 0.8rem 1.6rem;
+    font-size: 1rem;
+    color: white;
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .glass button:hover {
+    background: rgba(255, 255, 255, 0.35);
+  }
+</style>
+</head>
+<body>
+  <div class="glass">
+    <h1>Liquid Glass</h1>
+    <p>Pure CSS frosted‑glass effect</p>
+    <button>Tap me</button>
+  </div>
+</body>
+</html>
